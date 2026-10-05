@@ -1,0 +1,19 @@
+# Scientific stack
+numpy>=1.26
+scipy>=1.11
+pandas>=2.1
+matplotlib>=3.7
+pydantic>=2.6
+
+# EVo dependencies (EVo itself is cloned at the thesis commit on first use)
+pyyaml>=6
+ruamel.yaml>=0.17
+mpmath>=1.2.1
+
+# Deformation sources (Python port of dMODELS)
+dmodelspy==0.2
+
+# Agent, report and app
+anthropic>=1.11   # top-level cache_control (automatic prompt caching)
+reportlab>=4.0
+streamlit>=1.50

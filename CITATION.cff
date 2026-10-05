@@ -1,0 +1,72 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below (Mohammadian, Freya, 2026), together with the MSc thesis of Freya Mohammadian, EVo (Liggins et al. 2020, 2022) and dMODELS (Battaglia et al. 2013)."
+title: "Volcano Compressibility Agent - from the published literature to magma-compressibility and surface-deformation reports for any volcano"
+abstract: >-
+  An AI agent that, given the name of a volcano, assembles from the published literature the
+  inputs of the seven-step chain of the MSc thesis "From magma compressibility to surface
+  deformation at La Fossa volcano (Vulcano Island, Italy)" (melt compositions, temperatures,
+  volatile budgets, storage depths, published deformation sources, elastic moduli), each with its
+  source and status, runs EVo and the Mogi, Yang and Fialko deformation sources, and writes a
+  thesis-style PDF report. On the La Fossa dataset it reproduces the thesis results to 1e-6.
+type: software
+authors:
+  - family-names: "Mohammadian"
+    given-names: "Freya"
+    affiliation: "Earth, Environmental and Resources Sciences, University of Naples Federico II"
+version: "1.0.0"
+date-released: "2026-10-05"
+license: GPL-3.0-or-later
+repository-code: "https://github.com/FreyaMare/volcano-compressibility-agent"
+keywords:
+  - volcano monitoring
+  - magma compressibility
+  - volcano deformation
+  - AI agent
+  - EVo
+  - dMODELS
+  - InSAR
+preferred-citation:
+  type: software
+  title: "Volcano Compressibility Agent"
+  authors:
+    - family-names: "Mohammadian"
+      given-names: "Freya"
+      affiliation: "Earth, Environmental and Resources Sciences, University of Naples Federico II"
+  version: "1.0.0"
+  year: 2026
+  url: "https://github.com/FreyaMare/volcano-compressibility-agent"
+references:
+  - type: thesis
+    title: "From magma compressibility to surface deformation at La Fossa volcano (Vulcano Island, Italy)"
+    authors:
+      - family-names: Mohammadian
+        given-names: Freya
+    institution:
+      name: "University of Naples Federico II"
+    thesis-type: "MSc thesis"
+    year: 2026
+  - type: software
+    title: "La Fossa (Vulcano) - from magma compressibility to surface uplift"
+    authors:
+      - family-names: Mohammadian
+        given-names: Freya
+    repository-code: "https://github.com/FreyaMare/lafossa-magma-compressibility"
+  - type: software
+    title: "EVo"
+    authors:
+      - family-names: Liggins
+        given-names: Philippa
+    repository-code: "https://github.com/pipliggins/EVo"
+    license: GPL-3.0
+  - type: article
+    title: "Magma compressibility and the missing source for some dike intrusions"
+    authors:
+      - family-names: Rivalta
+        given-names: Eleonora
+      - family-names: Segall
+        given-names: Paul
+    journal: "Geophysical Research Letters"
+    volume: 35
+    start: "L04306"
+    year: 2008
+    doi: "10.1029/2007GL032521"
