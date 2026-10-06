@@ -51,6 +51,7 @@ references:
       - family-names: Mohammadian
         given-names: Freya
     repository-code: "https://github.com/FreyaMare/lafossa-magma-compressibility"
+    doi: "10.5281/zenodo.22898423"
   - type: software
     title: "EVo"
     authors:

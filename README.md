@@ -11,7 +11,7 @@ surface-deformation chain, and returns a thesis-style PDF report.**
 
 It generalises the code of the MSc thesis *From magma compressibility to surface deformation at La Fossa
 volcano (Vulcano Island, Italy)* — [`FreyaMare/lafossa-magma-compressibility`](https://github.com/FreyaMare/lafossa-magma-compressibility) —
-from one volcano to any volcano. On the La Fossa dataset the generalised engine reproduces every r<sub>V</sub>
+from one volcano to any volcano (thesis code archived as [10.5281/zenodo.22898423](https://doi.org/10.5281/zenodo.22898423)). On the La Fossa dataset the generalised engine reproduces every r<sub>V</sub>
 and uplift value of the thesis to better than 10⁻⁶ (relative).
 
 📖 **[User guide, step by step](docs/USER_GUIDE.md)** — what it does, buying an API key, uploading to GitHub,
