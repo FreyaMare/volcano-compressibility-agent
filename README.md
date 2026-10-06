@@ -11,7 +11,7 @@ surface-deformation chain, and returns a thesis-style PDF report.**
 
 It generalises the code of the MSc thesis *From magma compressibility to surface deformation at La Fossa
 volcano (Vulcano Island, Italy)* — [`FreyaMare/lafossa-magma-compressibility`](https://github.com/FreyaMare/lafossa-magma-compressibility) —
-from one volcano to any volcano. On the La Fossa dataset the generalised engine reproduces every r<sub>V</sub>
+from one volcano to any volcano (thesis code archived as [10.5281/zenodo.22898423](https://doi.org/10.5281/zenodo.22898423)). On the La Fossa dataset the generalised engine reproduces every r<sub>V</sub>
 and uplift value of the thesis to better than 10⁻⁶ (relative).
 
 📖 **[User guide, step by step](docs/USER_GUIDE.md)** — what it does, buying an API key, uploading to GitHub,
@@ -114,6 +114,7 @@ volcano_agent/
   reference/lafossa.json        the thesis dataset (regression test and demo)
 tests/                          thesis regression; edge cases; end-to-end agent with a fake Claude client
 docs/                           user guide, data specification, methods, example report
+paper/                          experiments and figures of the accompanying manuscript
 .github/workflows/tests.yml     CI
 .streamlit/                     theme; secrets example
 packages.txt                    git for Streamlit Cloud (EVo is cloned at run time)
@@ -130,7 +131,7 @@ pytest -v tests/          # VOLCANO_AGENT_EVO_DIR=/path/to/EVo reuses an existin
 
 If you use this software, please cite both the software and the thesis it is based on:
 
-> Mohammadian, Freya (2026). *Volcano Compressibility Agent* (version 1.0.0) [software].
+> Mohammadian, Freya (2026). *Volcano Compressibility Agent* (version 1.1.0) [software].
 > https://github.com/FreyaMare/volcano-compressibility-agent
 
 > Mohammadian, Freya (2026). *From magma compressibility to surface deformation at La Fossa volcano

@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0 — 2026-10-06
+Changes prompted by the numerical experiments of the accompanying manuscript (`paper/`).
+
+* `finalize()` now flags a storage level whose depth is inconsistent with its published pressure
+  (more than a factor of 1.6 from P/(ρg)) — e.g. 12 km misread as 1.2 km. Flagged, not corrected.
+* Every repair is now logged as a caveat, including those that leave the result unchanged: shear moduli
+  given in pascal, negative published ΔV / ΔP (deflation), swapped spheroid axes, aspect ratio given as a/b.
+* Report: the title-page box states that the report is not an eruption forecast or a hazard assessment;
+  Appendix C records the software version and the EVo commit.
+* `paper/`: scripts that reproduce the experiments and figures of the manuscript (regression against the thesis,
+  value of literature data, injected extraction errors, edge-case summary).
+* Tests: 17 (new: depth–pressure check; assertions that each repair is logged).
+
 ## 1.0.0 — 2026-10-05
 First release.
 

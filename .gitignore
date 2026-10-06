@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 *.pdf
 !docs/*.pdf
+!paper/*.pdf
 *_dataset.json
 !volcano_agent/reference/*.json
 .streamlit/secrets.toml

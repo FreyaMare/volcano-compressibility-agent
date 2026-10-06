@@ -6,5 +6,5 @@ Generalises the code of the MSc thesis "From magma compressibility to surface de
 
 Copyright (C) 2026 Freya Mohammadian. Licensed under the GNU GPL v3 or later.
 """
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "Freya Mohammadian"

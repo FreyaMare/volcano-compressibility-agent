@@ -80,6 +80,7 @@ def test_specific_fixes():
     s = d.deformation_source
     assert s.a_m.value and s.b_m.value and abs(s.aspect.value - 0.3) < 1e-9      # geometry from V0 + default A
     assert s.dV_m3.value == 5e6                                                  # sign removed
+    assert any("deflation" in g for g in d.data_gaps)
     a = d.magma("ANDESITE")
     assert abs(a.T_C.value - 999.85) < 0.1                                       # kelvin converted
     assert "FE2O3" not in a.oxides and 97 <= sum(a.oxides.values()) <= 101.5   # LOI dropped, Fe converted
@@ -87,10 +88,12 @@ def test_specific_fixes():
     d = finalize(Dataset.model_validate(CASES["penny_shallow_deep"].model_dump()))
     assert [L.depth_km.value for L in d.levels] == [1.0, 30.0]                   # duplicate and 90 km dropped
     assert d.deformation_source.mu_GPa.value == 3.0                              # Pa -> GPa
+    assert any("read as pascal" in g for g in d.data_gaps)
 
     d = finalize(Dataset.model_validate(CASES["odd_values"].model_dump()))
     s = d.deformation_source
     assert s.a_m.value == 900.0 and s.b_m.value == 100.0                         # axes swapped back
+    assert any("swapped" in g for g in d.data_gaps) and any("inverted" in g for g in d.data_gaps)
     assert 0.02 <= s.aspect.value <= 0.99 and 1.0 <= s.dip_deg.value <= 89.99
     assert d.rho_crust.status == "D" and d.nu_deep.status == "D" and d.dFMQ.status == "D"
     assert d.magma("BASANITE").evo_class == "basalt" and d.magma("HIGH_SILICA").evo_class == "rhyolite"
@@ -105,3 +108,13 @@ def test_crack_wider_than_deep_is_skipped():
     labels = set(rr.results["res"].label)
     assert "Penny crack a = 2 km, 1 km" not in labels and "Penny crack a = 1 km, 1 km" in labels
     assert any("a/d > 1" in n for n in rr.results["notes"])
+
+
+def test_depth_pressure_inconsistency_is_flagged():
+    import pathlib
+    ref = Dataset.model_validate_json((pathlib.Path(__file__).resolve().parents[1] / "volcano_agent" / "reference"
+                                       / "lafossa.json").read_text())
+    assert not any("inconsistent with its published pressure" in g for g in finalize(Dataset.model_validate(ref.model_dump())).data_gaps)
+    bad = Dataset.model_validate(ref.model_dump())
+    bad.levels[2].depth_km.value = 1.2                       # 12 km misread as 1.2 km (published 300 MPa)
+    assert any("inconsistent with its published pressure" in g for g in finalize(bad).data_gaps)
