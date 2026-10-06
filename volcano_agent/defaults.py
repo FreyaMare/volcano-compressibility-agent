@@ -130,6 +130,7 @@ def finalize(ds: Dataset) -> Dataset:
     _sane(ds.rho_crust, 1800, 3300, "Crustal density (kg/m3)", gaps)
     for q, lab in ((ds.mu_deep_GPa, "Deep shear modulus (GPa)"), (ds.mu_shallow_GPa, "Shallow shear modulus (GPa)")):
         if q.value is not None and q.value > 1e3:                # given in Pa
+            gaps.append(f"{lab}: {q.value:g} read as pascal and converted to {q.value / 1e9:g} GPa.")
             q.value = q.value / 1e9
         _sane(q, 0.05, 100, lab, gaps)
     _sane(ds.nu_deep, 0.01, 0.49, "Deep Poisson ratio", gaps)
@@ -248,6 +249,15 @@ def finalize(ds: Dataset) -> Dataset:
         good = [Level(name=f"Generic level {z:g} km", depth_km=Q(value=z, status="D"),
                       resident=mags[min(i, len(mags) - 1)], injected="") for i, z in enumerate((3.0, 6.0, 10.0))]
     ds.levels = good[:4]
+    rho = ds.rho_crust.value or 2500.0
+    for L in ds.levels:
+        P = L.pressure_MPa.value
+        if P is not None and P > 0:
+            z_from_P = P * 1e6 / (rho * 9.81) / 1e3
+            ratio = L.depth_km.value / z_from_P
+            if not (1 / 1.6 <= ratio <= 1.6):
+                gaps.append(f"Storage level '{L.name}': depth {L.depth_km.value:g} km is inconsistent with its published "
+                            f"pressure {P:g} MPa (≈{z_from_P:.1f} km at ρ = {rho:g} kg/m3); check both values in the source.")
     for L in ds.levels:
         L.resident = (L.resident or "").upper().replace(" ", "_")
         L.injected = (L.injected or "").upper().replace(" ", "_")
@@ -274,6 +284,8 @@ def finalize(ds: Dataset) -> Dataset:
         if src.injected not in keys:
             src.injected = _next_mafic(src.resident)
         if src.mu_GPa.value is not None and src.mu_GPa.value > 1e3:
+            gaps.append(f"Source shear modulus {src.mu_GPa.value:g} read as pascal and converted to "
+                        f"{src.mu_GPa.value / 1e9:g} GPa.")
             src.mu_GPa.value /= 1e9
         _sane(src.mu_GPa, 0.05, 100, "Source shear modulus (GPa)", gaps)
         _sane(src.nu, 0.01, 0.49, "Source Poisson ratio", gaps)
@@ -281,6 +293,8 @@ def finalize(ds: Dataset) -> Dataset:
         src.nu = src.nu if src.nu.value is not None else Q(**ds.nu_shallow.model_dump())
         for q in (src.dV_m3, src.dP_MPa):                  # deflation episodes are published as negative
             if q.value is not None and q.value < 0:
+                gaps.append(f"Published source: a negative value ({q.value:g}) was read as a deflation "
+                            "episode; its magnitude is used.")
                 q.value = abs(q.value)
                 q.note = (q.note + " " if q.note else "") + "published as negative (deflation); magnitude used"
         for q in (src.a_m, src.b_m, src.V0_m3, src.dV_m3, src.dP_MPa, src.aspect):
@@ -290,9 +304,12 @@ def finalize(ds: Dataset) -> Dataset:
         if src.model == "YANG":
             a, b, A, V0 = src.a_m.value, src.b_m.value, src.aspect.value, src.V0_m3.value
             if a is not None and b is not None and b > a:                # semi-axes swapped
+                gaps.append(f"Published spheroid: semi-minor axis ({b:g} m) larger than semi-major axis "
+                            f"({a:g} m); the two were swapped.")
                 src.a_m, src.b_m = src.b_m, src.a_m
                 a, b = b, a
             if A is not None and A > 1:
+                gaps.append(f"Published spheroid: aspect ratio {A:g} > 1 read as a/b and inverted to {1 / A:.3g}.")
                 A = 1.0 / A
             if A is None:
                 A = b / a if (a and b) else None

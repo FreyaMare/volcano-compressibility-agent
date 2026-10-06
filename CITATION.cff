@@ -13,8 +13,8 @@ authors:
   - family-names: "Mohammadian"
     given-names: "Freya"
     affiliation: "Earth, Environmental and Resources Sciences, University of Naples Federico II"
-version: "1.0.0"
-date-released: "2026-10-05"
+version: "1.1.0"
+date-released: "2026-10-06"
 license: GPL-3.0-or-later
 repository-code: "https://github.com/FreyaMare/volcano-compressibility-agent"
 keywords:
@@ -32,7 +32,7 @@ preferred-citation:
     - family-names: "Mohammadian"
       given-names: "Freya"
       affiliation: "Earth, Environmental and Resources Sciences, University of Naples Federico II"
-  version: "1.0.0"
+  version: "1.1.0"
   year: 2026
   url: "https://github.com/FreyaMare/volcano-compressibility-agent"
 references:

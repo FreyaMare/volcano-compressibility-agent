@@ -66,10 +66,13 @@ Plausibility checks (each logged as a gap):
 | Poisson ratio | 0.01–0.49 | discarded → default |
 | ΔFMQ | −3 to +4 | discarded → default |
 | Storage depth | 0.2–40 km; duplicate depths removed | level dropped |
+| Storage depth vs published pressure | depth within a factor of 1.6 of P/(ρg) | flagged for review (not corrected) |
 | Source depth | 0.05–20 km | source dropped |
-| Spheroid | axes swapped if b > a; aspect ratio clamped to 0.02–0.99; plunge to 1–89.99° | — |
+| Spheroid | axes swapped if b > a; aspect ratio > 1 read as a/b and inverted; aspect clamped to 0.02–0.99; plunge to 1–89.99° | — |
 | Source ΔV, ΔP | negative (deflation) values: magnitude used | — |
 | Oxide analysis | fewer than 7 oxides or total < 85 wt% | generic composition |
+
+Every correction in this table is written to the data-gaps list (report Section 4.7 and title page), including repairs that leave the result unchanged (unit conversions, swapped axes, signs): a repaired value means the source was misread and its other values deserve a closer look.
 
 Oxide names are normalised (`FeOt`, `FeO*`, `Fe2O3T` …).
 Total iron given as Fe₂O₃ is converted with FeO = 0.8998 Fe₂O₃; analyses whose oxide total lies outside

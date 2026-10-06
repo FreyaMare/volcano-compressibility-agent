@@ -21,9 +21,11 @@ from reportlab.platypus import (Image, KeepTogether, PageBreak, Paragraph, Simpl
                                 Spacer, Table, TableStyle)
 from reportlab.platypus.tableofcontents import TableOfContents
 
+from . import __version__
 from . import figures as FIG
 from . import templates as T
 from .facts import audit_numbers
+from .physics import EVO_COMMIT
 from .schema import STATUS_LABEL
 
 # ------------------------------------------------------------------------------- fonts
@@ -273,7 +275,7 @@ def build_pdf(ds, an, R, facts, chapters: dict, meta: dict) -> bytes:
           "the narrative chapters were drafted by the language model from the computed numbers only. Every input carries its "
           "source and a status code (M measured, U analytical upper limit, A adopted, D generic default). "
           f"<b>{ng} input(s) are generic defaults or carry caveats</b> (Section 4.7). Verify key inputs against the cited "
-          "papers before using the results in any decision.")
+          "papers before using the results in any decision. This report is not an eruption forecast or a hazard assessment.")
     B.story.append(PageBreak())
     toc = TableOfContents()
     toc.levelStyles = [S["toc1"], S["toc2"]]
@@ -599,6 +601,7 @@ def build_pdf(ds, an, R, facts, chapters: dict, meta: dict) -> bytes:
             widths=[2.4, 1.8, 0.8, 3.2, 3.6], chapter="B", font=6.6)
     B.h1("Appendix C  Research log and number audit")
     B.para(clean(f"Research model: {meta.get('model', '')}. Usage: {meta.get('usage', '')}. "
+                 f"Software: Volcano Compressibility Agent {__version__}; EVo commit {EVO_COMMIT[:7]}. "
                  f"Report generated {_dt.datetime.now():%Y-%m-%d %H:%M}."), "small")
     unmatched = meta.get("audit", [])
     B.para(("<b>Number audit.</b> Every number in the model-written chapters was compared with the computed facts and the "

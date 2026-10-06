@@ -114,6 +114,7 @@ volcano_agent/
   reference/lafossa.json        the thesis dataset (regression test and demo)
 tests/                          thesis regression; edge cases; end-to-end agent with a fake Claude client
 docs/                           user guide, data specification, methods, example report
+paper/                          experiments and figures of the accompanying manuscript
 .github/workflows/tests.yml     CI
 .streamlit/                     theme; secrets example
 packages.txt                    git for Streamlit Cloud (EVo is cloned at run time)
@@ -130,7 +131,7 @@ pytest -v tests/          # VOLCANO_AGENT_EVO_DIR=/path/to/EVo reuses an existin
 
 If you use this software, please cite both the software and the thesis it is based on:
 
-> Mohammadian, Freya (2026). *Volcano Compressibility Agent* (version 1.0.0) [software].
+> Mohammadian, Freya (2026). *Volcano Compressibility Agent* (version 1.1.0) [software].
 > https://github.com/FreyaMare/volcano-compressibility-agent
 
 > Mohammadian, Freya (2026). *From magma compressibility to surface deformation at La Fossa volcano
